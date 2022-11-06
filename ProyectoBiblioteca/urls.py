@@ -19,5 +19,12 @@ from AppBiblioteca import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.login)
+    path('', views.home, name='index'),
+    path('prestamo/', views.prestamo, name='Prestamo'), 
+    path('devolucion/', views.devolucion, name='Devolucion'),
+    path('registrarPersona/', views.registrarPersona, name='RegistrarPersona'),
+    path('eliminarPersona/', views.eliminarPersona, name='EliminarPersona'),
+    path('registrarMaterial/', views.registrarMaterial, name='RegistrarMaterial'),
+    path('aumentarMaterial/', views.aumentarMaterial, name='AumentarMaterial'),
+    path('historial/', views.historial, name='Historial') 
 ]

@@ -3,13 +3,27 @@ from django.http import HttpResponse
 from .models import *
 
 # Create your views here.
-def login(request):
-    if request.method == 'GET':
-        return render(request, "index.html")
-    else:
-        documento = request.POST['documento']
-        try:
-            Persona.objects.get(cedula=documento)
-            return render(request, "RegistrarMaterial.html")
-        except:
-            return HttpResponse('Usuario no encontrado')
+def home(request):
+    return render(request, "index.html")
+
+def prestamo(request):
+    return render(request, "prestamo.html")
+
+def devolucion(request):
+    return render(request, "devolucion.html")
+
+def registrarPersona(request):
+    return render(request, "registrarPersona.html")
+
+def eliminarPersona(request):
+    return render(request, "eliminarPersona.html")
+
+def registrarMaterial(request):
+    return render(request, "registrarMaterial.html")
+
+def aumentarMaterial(request):
+    return render(request, "aumentarMaterial.html")
+
+def historial(request):
+    return render(request, "historial.html")
+    
