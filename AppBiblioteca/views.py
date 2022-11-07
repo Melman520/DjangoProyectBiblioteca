@@ -29,7 +29,7 @@ def registrarPersona(request):
             return render(request, "registrarPersona.html", {'Titulo':title, 'form':form, 'succes': succes})
     else:
         form = RegistrarPersonaForm()    
-    return render(request, "registrarPersona.html", {'Titulo':title, 'form':form})
+        return render(request, "registrarPersona.html", {'Titulo':title, 'form':form})
 
 def eliminarPersona(request):
     title = 'Eliminar Persona'
@@ -37,7 +37,18 @@ def eliminarPersona(request):
 
 def registrarMaterial(request):
     title = 'Registrar Material'
-    return render(request, "registrarMaterial.html", {'Titulo':title})
+    if request.method == 'POST':
+        form = RegistrarMaterialForm(request.POST)
+        if form.is_valid():
+            form.save()
+            succes = 1
+            return render(request, "registrarMaterial.html", {'Titulo':title, 'form':form, 'succes': succes})
+        else:
+            succes = 2
+            return render(request, "registrarMaterial.html", {'Titulo':title, 'form':form, 'succes': succes})
+    else:
+        form = RegistrarMaterialForm()
+        return render(request, "registrarMaterial.html", {'Titulo':title, 'form':form})
 
 def aumentarMaterial(request):
     title = 'Aumentar Material'

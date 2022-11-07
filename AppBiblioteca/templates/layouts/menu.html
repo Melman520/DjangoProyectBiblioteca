@@ -40,12 +40,20 @@
         </tr>
       </table><br>
       <h1>{{ Titulo.title }}</h1>
-      <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
       
-      {% block content %}
-      {% endblock %}
+        
+                      
+              <div class="card-body">
+                <form method="POST" class="form">
+                  <center>
+                  {% csrf_token %}
+                  {{ form.as_p }}
+                  {% block content %}
+                  {% endblock %}
+                </center>
+              </div>
+          
+      
     </form>
     </div>
   </section>
