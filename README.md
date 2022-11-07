@@ -1,7 +1,5 @@
 # DjangoProyectBiblioteca
 
-Segunda actividad evaluativa tendencias Desarrollo de software
-
 Se quiere crear un programa que permita administrar una biblioteca. La biblioteca
 maneja material académico de diferente tipo, libros, revistas, material audiovisual,
 etc.
