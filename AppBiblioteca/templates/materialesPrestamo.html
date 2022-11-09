@@ -1,0 +1,33 @@
+{% extends 'layouts/menu.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table text-light">
+                    <thead>
+                        <tr>
+                            <th>Materiales</th>
+                            <th>Cantidad Actual</th>
+                            <th>Cantidad Registrada</th>
+                            <th>Aumentar Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for m in materiales %}
+                        {% if m.cantidadActual > 0 %}
+                        <tr>
+                            <td>{{m.titulo}}</td>
+                            <td>{{m.cantidadActual}}</td>
+                            <td>{{m.cantidadRegistrada}}</td>
+                            <td><a href="/hacerPrestamo/{{ persona.cedula }}/{{ m.identificador }}" class="btn btn-sm btn-block btn-success">Prestar</a></td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

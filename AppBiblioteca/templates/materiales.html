@@ -1,0 +1,32 @@
+{% extends 'layouts/menu.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table text-light">
+                    <thead>
+                        <tr>
+                            <th>Materiales</th>
+                            <th>Cantidad Actual</th>
+                            <th>Cantidad Registrada</th>
+                            <th>Aumentar Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for m in materiales %}
+                        <tr>
+                            <td>{{m.titulo}}</td>
+                            <td>{{m.cantidadActual}}</td>
+                            <td>{{m.cantidadRegistrada}}</td>
+                            <td><a href="/edicionMaterial/{{m.identificador}}" class="btn btn-sm btn-block btn-success">Aumentar</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <td><a href="{% url 'RegistrarMaterial' %}" class="btn btn-sm btn-block btn-success"><h5>Nuevo</h5></a></td>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

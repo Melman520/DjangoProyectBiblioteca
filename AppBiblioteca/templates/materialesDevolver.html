@@ -7,19 +7,17 @@
                 <table class="table text-light">
                     <thead>
                         <tr>
-                            <th>Movimiento</th>
-                            <th>Fecha</th>
                             <th>Cedula</th>
-                            <th>ID Material</th>
+                            <th>Id Material</th>
+                            <th>Aumentar Cantidad</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for r in registros %}
+                        {% for m in materiales %}
                         <tr>
-                            <td>{{r.movimiento}}</td>
-                            <td>{{r.fecha}}</td>
-                            <td>{{r.cedula}}</td>
-                            <td>{{r.idMaterial}}</td>
+                            <td>{{m.cedula}}</td>
+                            <td>{{m.idMaterial}}</td>
+                            <td><a href="/hacerDevolucion/{{ m.cedula }}/{{ m.idMaterial }}" class="btn btn-sm btn-block btn-success">Devolver</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>

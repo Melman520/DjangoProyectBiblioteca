@@ -1,0 +1,33 @@
+{% extends 'layouts/menu.html' %}
+{% block content %}
+<div class="container">
+  <div class="row">
+      <div class="col">
+          <div class="table-responsive">
+              <table class="table text-light">
+                  <thead>
+                      <tr>
+                          <th>Nombre</th>
+                          <th>Cedula</th>
+                          <th>Rol</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    {% for p in personas %}
+                      <tr> 
+                          <td>{{p.nombre}}</td>
+                          <td>{{p.cedula}}</td>
+                          <td>{{p.idRol}}</td>
+                          <td><a href="/materialesPrestamo/{{p.cedula}}" class="btn btn-sm btn-block btn-success"><h5>Prestar</h5></a></td>
+                          <td><a href="/materialesDevolver/{{p.cedula}}" class="btn btn-sm btn-block btn-success"><h5>Devolver</h5></a></td>
+                          <td><a href="/eliminarPersona/{{p.cedula}}" class="btn btn-sm btn-block btn-danger"><h5>Eliminar</h5></a></td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+              </table>
+              <td><a href="{% url 'RegistrarPersona' %}" class="btn btn-sm btn-block btn-success"><h5>Nuevo</h5></a></td>
+          </div>
+      </div>
+  </div>
+</div>
+{% endblock %}

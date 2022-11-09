@@ -21,40 +21,19 @@
 <body>
   <section class="vh-100 gradient-custom">
     <div class="container py-5 h-100">
-      <h1><a href="{% url 'index' %}">Biblioteca TDEA</a></h1>
+      <h1><a href="{% url 'Usuarios' %}">Biblioteca TDEA</a></h1>
       <table>
         <tr>
-          <td width=10% align="center"><a href="{% url 'Prestamo' %}">Prestamo</a></td>
-          <td width=10% align="center"><a href="{% url 'Devolucion' %}">Devolución</a></td>
-        </tr>
-        <tr>
-          <td width=10% align="center"><a href="{% url 'RegistrarPersona' %}">Registrar Persona</a></td>
-          <td width=10% align="center"><a href="{% url 'EliminarPersona' %}">Eliminar Persona</a></td>
-        </tr>
-        <tr>
-          <td width=10% align="center"><a href="{% url 'RegistrarMaterial' %}">Registrar Material</a></td>
-          <td width=10% align="center"><a href="{% url 'AumentarMaterial' %}">Aumentar Material</a></td>
-        </tr>
-        <tr>
+          <td width=10% align="center"><a href="{% url 'Usuarios' %}">Usuarios</a></td>
+          <td width=10% align="center"><a href="{% url 'Materiales' %}">Materiales</a></td>
           <td width=10% align="center" colspan="2"><a href="{% url 'Historial' %}">Historial</a></td>
         </tr>
       </table><br>
-      <h1>{{ Titulo.title }}</h1>
       
         
-                      
-              <div class="card-body">
-                <form method="POST" class="form">
-                  <center>
-                  {% csrf_token %}
-                  {{ form.as_p }}
-                  {% block content %}
-                  {% endblock %}
-                </center>
-              </div>
-          
-      
-    </form>
+      {% block content %}
+      {% endblock %}
+              
     </div>
   </section>
 </body>

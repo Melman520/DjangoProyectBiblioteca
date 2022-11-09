@@ -43,3 +43,26 @@ class RegistrarMaterialForm(forms.ModelForm):
             'cantidadRegistrada': forms.NumberInput(attrs={'class':'form-control w-25', 'oninput':'actualizarValor()'}),
             'cantidadActual': forms.NumberInput(attrs={'class':'form-control w-25', 'style':'display:none'})
         }
+
+class AumentarMaterialForm(forms.ModelForm):
+    class Meta:
+        model = Material
+
+        fields = [
+            'identificador',
+            'titulo',
+            'cantidadActual',
+            'cantidadRegistrada'
+        ]
+        labels = {
+            'identificador': '',
+            'titulo': '',
+            'cantidadActual': '',
+            'cantidadRegistrada': ''
+        }
+        widgets = {
+            'identificador': forms.TextInput(attrs={'class':'form-control w-25', 'style':'display:none'}),
+            'titulo': forms.TextInput(attrs={'class':'form-control w-25', 'style':'display:none' }),
+            'cantidadRegistrada': forms.NumberInput(attrs={'class':'form-control w-25', 'style':'display:none'}),
+            'cantidadActual': forms.NumberInput(attrs={'class':'form-control w-25', 'style':'display:none'})
+        }

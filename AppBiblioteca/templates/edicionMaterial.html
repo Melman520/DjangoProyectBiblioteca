@@ -1,0 +1,24 @@
+{% extends 'layouts/menu.html' %}
+{% block content %}
+<form method="POST" class="form">
+    <center>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <label>Cantidad</label>
+      <input type="text" id="cantidad" class="form-control w-25" oninput="actualizarValor()"> 
+      <button type="submit" class="btn btn-success">Aumentar unidades</button>
+    </center>
+</form>
+
+<script>
+    document.getElementById("id_identificador").value = "{{material.identificador}}";
+    document.getElementById("id_titulo").value = "{{material.titulo}}";
+    function actualizarValor() {
+        let valor = document.getElementById("cantidad").value;
+        document.getElementById("id_cantidadActual").value = parseInt(valor) + parseInt("{{material.cantidadActual}}");
+        document.getElementById("id_cantidadRegistrada").value = parseInt(valor) + parseInt("{{material.cantidadRegistrada}}");
+    }
+</script>
+
+
+{% endblock %}

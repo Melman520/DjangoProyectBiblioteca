@@ -1,5 +1,12 @@
 {% extends 'layouts/menu.html' %}
 {% block content %}
+<form method="POST" class="form">
+    <center>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-success">Registrar</button>
+    </center>
+</form>
 {% if succes == 1 %}
 <script>
     Toastify({
@@ -36,5 +43,4 @@
     }).showToast();
 </script>
 {% endif %}
-<button type="submit" class="btn btn-success">Registrar</button>
 {% endblock %}

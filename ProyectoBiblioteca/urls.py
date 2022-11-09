@@ -19,12 +19,15 @@ from AppBiblioteca import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='index'),
-    path('prestamo/', views.prestamo, name='Prestamo'), 
-    path('devolucion/', views.devolucion, name='Devolucion'),
+    path('', views.usuarios, name='Usuarios'),
+    path('materiales/', views.materiales, name='Materiales'),
+    path('materialesPrestamo/<int:documento>', views.materialesPrestamo, name='MaterialesPrestamo'),
+    path('hacerPrestamo/<int:documento>/<int:idmaterial>', views.hacerPrestamo, name='HacerPrestamo'),
+    path('materialesDevolver/<int:documento>', views.materialesDevolver, name='MaterialesDevolver'),
+    path('hacerDevolucion/<int:documento>/<int:idmaterial>', views.hacerDevolucion, name='HacerDevolucion'),
     path('registrarPersona/', views.registrarPersona, name='RegistrarPersona'),
-    path('eliminarPersona/', views.eliminarPersona, name='EliminarPersona'),
+    path('eliminarPersona/<int:documento>', views.eliminarPersona, name='EliminarPersona'),
     path('registrarMaterial/', views.registrarMaterial, name='RegistrarMaterial'),
-    path('aumentarMaterial/', views.aumentarMaterial, name='AumentarMaterial'),
+    path('edicionMaterial/<int:identificador>', views.edicionMaterial, name='edicionMaterial'),
     path('historial/', views.historial, name='Historial') 
 ]
