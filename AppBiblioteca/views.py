@@ -8,15 +8,13 @@ def home(request):
     title = 'Home'
     return render(request, "usuarios.html", {'Titulo':title})
 
-def prestamo():
-    title = ""
-
 def materialesPrestamo(request, documento):
     title = 'Materiales'
     materiales = Material.objects.all()
     persona = Persona.objects.get(cedula=documento)
+    rol = str(persona.idRol)
     materialesPrestados = MaterialPrestado.objects.filter(cedula=documento)
-    return render(request, "materialesPrestamo.html", {'Titulo':title, 'materiales': materiales, 'persona':persona, 'materialesPrestados':materialesPrestados})
+    return render(request, "materialesPrestamo.html", {'Titulo':title, 'materiales': materiales, 'persona':persona, 'materialesPrestados':materialesPrestados, 'rol': rol})
 
 def materialesDevolver(request, documento):
     title = 'Devolver Materiales'
@@ -41,7 +39,7 @@ def hacerPrestamo(request, documento, idmaterial):
     material.save()
     MaterialPrestado.objects.create(cedula=persona, idMaterial=material)
     generarRegistro(persona, material, 'Prestamo')
-    return redirect('Usuarios')
+    return redirect('MaterialesPrestamo', documento)
 
 def materiales(request):
     title = 'Materiales'
@@ -69,9 +67,13 @@ def registrarPersona(request):
         return render(request, "registrarPersona.html", {'Titulo':title, 'form':form})
 
 def eliminarPersona(request, documento):
+    materialesPrestados = MaterialPrestado.objects.filter(cedula=documento)
     persona = Persona.objects.get(cedula=documento)
-    persona.delete()
-    return redirect("Usuarios")
+    if(len(materialesPrestados) == 0):
+        persona.delete()
+        return redirect("Usuarios")
+    else:
+        return redirect("Usuarios")
 
 def registrarMaterial(request):
     title = 'Registrar Material'
@@ -107,4 +109,3 @@ def historial(request):
 
 def generarRegistro(documento, idmaterial, estado):
     Registro.objects.create(idMaterial=idmaterial, movimiento=estado, cedula=documento)
-    

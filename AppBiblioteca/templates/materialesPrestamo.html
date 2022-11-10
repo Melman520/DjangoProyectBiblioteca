@@ -1,33 +1,111 @@
 {% extends 'layouts/menu.html' %}
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="table-responsive">
-                <table class="table text-light">
-                    <thead>
-                        <tr>
-                            <th>Materiales</th>
-                            <th>Cantidad Actual</th>
-                            <th>Cantidad Registrada</th>
-                            <th>Aumentar Cantidad</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for m in materiales %}
-                        {% if m.cantidadActual > 0 %}
-                        <tr>
-                            <td>{{m.titulo}}</td>
-                            <td>{{m.cantidadActual}}</td>
-                            <td>{{m.cantidadRegistrada}}</td>
-                            <td><a href="/hacerPrestamo/{{ persona.cedula }}/{{ m.identificador }}" class="btn btn-sm btn-block btn-success">Prestar</a></td>
-                        </tr>
-                        {% endif %}
-                        {% endfor %}
-                    </tbody>
-                </table>
+{% if rol == "Estudiante" %}
+    {% if materialesPrestados|length >= 5 %}
+        <h1>Los estudiantes solo pueden prestar 5 libros</h1>
+        <center><a href="/materialesDevolver/{{persona.cedula}}" class="btn btn-sm btn-block btn-success"><h5>Devolver</h5></a></center>
+    {% else %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="table-responsive">
+                    <table class="table text-light">
+                        <thead>
+                            <tr>
+                                <th>Materiales</th>
+                                <th>Cantidad Actual</th>
+                                <th>Aumentar Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for m in materiales %}
+                            {% if m.cantidadActual > 0 %}
+                            <tr>
+                                <td>{{m.titulo}}</td>
+                                <td>{{m.cantidadActual}}</td>
+                                <td><a href="/hacerPrestamo/{{ persona.cedula }}/{{ m.identificador }}" class="btn btn-sm btn-block btn-success">Prestar</a></td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
+    {% endif %}
+{% endif %}
+
+{% if rol == "Profesor" %}
+{% if materialesPrestados|length >= 3 %}
+<h1>Los profesores solo pueden prestar 3 libros</h1>
+<center><a href="/materialesDevolver/{{persona.cedula}}" class="btn btn-sm btn-block btn-success"><h5>Devolver</h5></a></center>
+{% else %}
+<div class="container">
+<div class="row">
+    <div class="col">
+        <div class="table-responsive">
+            <table class="table text-light">
+                <thead>
+                    <tr>
+                        <th>Materiales</th>
+                        <th>Cantidad Actual</th>
+                        <th>Aumentar Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for m in materiales %}
+                    {% if m.cantidadActual > 0 %}
+                    <tr>
+                        <td>{{m.titulo}}</td>
+                        <td>{{m.cantidadActual}}</td>
+                        <td><a href="/hacerPrestamo/{{ persona.cedula }}/{{ m.identificador }}" class="btn btn-sm btn-block btn-success">Prestar</a></td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+</div>
+{% endif %}
+{% endif %}
+
+{% if rol == "Administrador" %}
+{% if materialesPrestados|length >= 1 %}
+<h1>Los administradores solo pueden prestar 1 libro</h1>
+<center><a href="/materialesDevolver/{{persona.cedula}}" class="btn btn-sm btn-block btn-success"><h5>Devolver</h5></a></center>
+{% else %}
+<div class="container">
+<div class="row">
+    <div class="col">
+        <div class="table-responsive">
+            <table class="table text-light">
+                <thead>
+                    <tr>
+                        <th>Materiales</th>
+                        <th>Cantidad Actual</th>
+                        <th>Aumentar Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for m in materiales %}
+                    {% if m.cantidadActual > 0 %}
+                    <tr>
+                        <td>{{m.titulo}}</td>
+                        <td>{{m.cantidadActual}}</td>
+                        <td><a href="/hacerPrestamo/{{ persona.cedula }}/{{ m.identificador }}" class="btn btn-sm btn-block btn-success">Prestar</a></td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+{% endif %}
+{% endif %}
+
 {% endblock %}
