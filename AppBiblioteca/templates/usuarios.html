@@ -1,5 +1,15 @@
 {% extends 'layouts/menu.html' %}
 {% block content %}
+{% if eliminacion == 2 %}
+<script>
+    toastify("Usuario borrado correctamente","green")
+</script>
+{% endif %}
+{% if eliminacion == 3 %}
+<script>
+    toastify("No puede borrar usuarios con libros prestados","red")
+</script>
+{% endif %}
 <div class="container">
   <div class="row">
       <div class="col">

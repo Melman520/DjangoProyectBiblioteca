@@ -9,20 +9,7 @@
 </form>
 {% if succes == 2 %}
 <script>
-    Toastify({
-        text: "Material no creado",
-        duration: 3200,
-        destination: "",
-        newWindow: true,
-        close: false,
-        gravity: "bottom", // `top` or `bottom`
-        position: "center", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-            background: "red"
-    },
-        onClick: function () { } // Callback after click
-    }).showToast();
+    toastify("Material no creado","red")
 </script>
 {% endif %}
 <script>
@@ -31,5 +18,4 @@
         document.getElementById("id_cantidadActual").value = valor;
     }
 </script>
-
 {% endblock %}

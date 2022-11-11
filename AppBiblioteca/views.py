@@ -1,12 +1,22 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from .formularios import *
 from .models import *
 
 # Create your views here.
+
 def home(request):
     title = 'Home'
-    return render(request, "usuarios.html", {'Titulo':title})
+    return render(request, "index.html", {'Titulo':title})
+
+def usuarios(request, eliminacion):
+    title = 'Usuarios'
+    personas = Persona.objects.all()
+    return render(request, "usuarios.html", {'Titulo':title, 'personas':personas, 'eliminacion': eliminacion})
+
+def materiales(request):
+    title = 'Materiales'
+    materiales = Material.objects.all()
+    return render(request, "materiales.html", {'Titulo':title, 'materiales': materiales})
 
 def materialesPrestamo(request, documento):
     title = 'Materiales'
@@ -15,6 +25,15 @@ def materialesPrestamo(request, documento):
     rol = str(persona.idRol)
     materialesPrestados = MaterialPrestado.objects.filter(cedula=documento)
     return render(request, "materialesPrestamo.html", {'Titulo':title, 'materiales': materiales, 'persona':persona, 'materialesPrestados':materialesPrestados, 'rol': rol})
+
+def hacerPrestamo(request, documento, idmaterial):
+    persona = Persona.objects.get(cedula=documento)
+    material = Material.objects.get(identificador=idmaterial)
+    material.cantidadActual = material.cantidadActual - 1
+    material.save()
+    MaterialPrestado.objects.create(cedula=persona, idMaterial=material)
+    generarRegistro(persona, material, 'Prestamo')
+    return redirect('MaterialesPrestamo', documento)
 
 def materialesDevolver(request, documento):
     title = 'Devolver Materiales'
@@ -32,25 +51,6 @@ def hacerDevolucion(request, documento, idmaterial):
     generarRegistro(persona, material, 'Devolución')
     return redirect('MaterialesDevolver' ,documento )
 
-def hacerPrestamo(request, documento, idmaterial):
-    persona = Persona.objects.get(cedula=documento)
-    material = Material.objects.get(identificador=idmaterial)
-    material.cantidadActual = material.cantidadActual - 1
-    material.save()
-    MaterialPrestado.objects.create(cedula=persona, idMaterial=material)
-    generarRegistro(persona, material, 'Prestamo')
-    return redirect('MaterialesPrestamo', documento)
-
-def materiales(request):
-    title = 'Materiales'
-    materiales = Material.objects.all()
-    return render(request, "materiales.html", {'Titulo':title, 'materiales': materiales})
-
-def usuarios(request):
-    title = 'Usuarios'
-    personas = Persona.objects.all()
-    return render(request, "usuarios.html", {'Titulo':title, 'personas':personas})
-
 def registrarPersona(request):
     title = 'Registrar Persona'
     if request.method == 'POST':
@@ -58,7 +58,8 @@ def registrarPersona(request):
         if form.is_valid():
             form.save()
             succes = 1
-            return redirect("Usuarios")
+            eliminado=1
+            return redirect("usuarios" , eliminado)
         else:
             succes = 2
             return render(request, "registrarPersona.html", {'Titulo':title, 'form':form, 'succes': succes})
@@ -71,9 +72,11 @@ def eliminarPersona(request, documento):
     persona = Persona.objects.get(cedula=documento)
     if(len(materialesPrestados) == 0):
         persona.delete()
-        return redirect("Usuarios")
+        eliminado = 2
+        return redirect("usuarios" , eliminado)
     else:
-        return redirect("Usuarios")
+        eliminado = 3
+        return redirect("usuarios", eliminado)
 
 def registrarMaterial(request):
     title = 'Registrar Material'
@@ -104,7 +107,7 @@ def edicionMaterial(request, identificador):
 
 def historial(request):
     title = 'Historial'
-    registros = Registro.objects.all()
+    registros = reversed(Registro.objects.all())
     return render(request, "historial.html", {'Titulo':title, 'registros': registros})
 
 def generarRegistro(documento, idmaterial, estado):

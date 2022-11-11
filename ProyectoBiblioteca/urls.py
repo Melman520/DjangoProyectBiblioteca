@@ -19,7 +19,8 @@ from AppBiblioteca import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.usuarios, name='Usuarios'),
+    path('', views.home, name='Home'),
+    path('usuarios/<int:eliminacion>', views.usuarios, name='usuarios'),
     path('materiales/', views.materiales, name='Materiales'),
     path('materialesPrestamo/<int:documento>', views.materialesPrestamo, name='MaterialesPrestamo'),
     path('hacerPrestamo/<int:documento>/<int:idmaterial>', views.hacerPrestamo, name='HacerPrestamo'),
